@@ -5,7 +5,10 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/sakiib/clean-api/models"
+	_ "github.com/go-sql-driver/mysql"
+	"k8s.io/klog"
+
+	"github.com/sakiib/vault-secrets-demo/models"
 )
 
 const (
@@ -45,6 +48,7 @@ func NewDBConfig(username, password, podName, podNamespace, dbName string) (DBIn
 }
 
 func (db *DBConfig) GetItems() ([]models.Product, error) {
+	klog.Infoln(db.Username, db.Password)
 	conn, err := sql.Open("mysql", db.DBURL)
 	if err != nil {
 		return nil, err
@@ -71,6 +75,7 @@ func (db *DBConfig) GetItems() ([]models.Product, error) {
 }
 
 func (db *DBConfig) DeleteItemWithID() error {
+	klog.Infoln(db.Username, db.Password)
 	conn, err := sql.Open("mysql", db.DBURL)
 	if err != nil {
 		return err
