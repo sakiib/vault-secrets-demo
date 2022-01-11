@@ -6,7 +6,7 @@ metadata:
 spec:
   serviceAccountName: test-user-account
   containers:
-  - image: sakibalamin/demo-app:0.0.1
+  - image: sakibalamin/demo-app:0.0.2
     name: demo-app
     imagePullPolicy: Always
     volumeMounts:
