@@ -63,6 +63,16 @@ $ export VAULT_SKIP_VERIFY=true
 $ export VAULT_TOKEN=(kubectl vault get-root-token vaultserver vault -n demo --value-only) 
 ```
 
+## Get decrypted Vault Root Token
+
+```bash
+# get the decrypted root token with name
+$ kubectl vault get-root-token vaultserver vault -n demo
+
+# get only the value of decrypted root token
+$ kubectl vault get-root-token vaultserver vault -n demo --value-only
+```
+
 ## Enable MySQL SecretEngine
 
 A SecretEngine is a Kubernetes CustomResourceDefinition (CRD) which is designed to automate the process of enabling and configuring secret engines in Vault in a Kubernetes native way.
@@ -73,16 +83,6 @@ $ kubectl apply -f mysql.yaml
 
 # enable secret engine
 $ kubectl apply -f secretengine.yaml
-```
-
-## Get decrypted Vault Root Token
-
-```bash
-# get the decrypted root token with name
-$ kubectl vault get-root-token vaultserver vault -n demo
-
-# get only the value of decrypted root token
-$ kubectl vault get-root-token vaultserver vault -n demo --value-only
 ```
 
 ## Create Database Roles
