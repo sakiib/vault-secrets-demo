@@ -41,10 +41,6 @@ $ kubectl apply -f provider.yaml
 
 ## Deploy TLS Secured VaultServer
 
-A VaultServer is a Kubernetes CustomResourceDefinition (CRD) which is used to deploy a HashiCorp Vault server on Kubernetes clusters in a Kubernetes native way.
-
-When a VaultServer is created, the KubeVault operator will deploy a Vault server and create necessary Kubernetes resources required for the Vault server.
-
 ```bash
 # create the issuer
 $ kubectl apply -f issuer.yaml
@@ -75,8 +71,6 @@ $ kubectl vault get-root-token vaultserver vault -n demo --value-only
 
 ## Enable MySQL SecretEngine
 
-A SecretEngine is a Kubernetes CustomResourceDefinition (CRD) which is designed to automate the process of enabling and configuring secret engines in Vault in a Kubernetes native way.
-
 ```bash
 # create mysql DB 
 $ kubectl apply -f mysql.yaml
@@ -87,10 +81,6 @@ $ kubectl apply -f secretengine.yaml
 
 ## Create Database Roles
 
-A MySQLRole is a Kubernetes CustomResourceDefinition (CRD) which allows a user to create a database secret engine role in a Kubernetes native way.
-
-When a MySQLRole is created, the KubeVault operator creates a role according to the specification.
-
 ```bash
 # create the superuser role
 $ kubectl apply -f superusr-role.yaml
@@ -100,8 +90,6 @@ $ kubectl apply -f readonly-role.yaml
 ```
 
 ## Create SecretAccessRequest
-
-A SecretAccessRequest is a Kubernetes CustomResourceDefinition (CRD) which allows a user to request a Vault server for credentials in a Kubernetes native way. A SecretAccessRequest can be created under various roleRef e.g: AWSRole, GCPRole, ElasticsearchRole, MongoDBRole, etc. A SecretAccessRequest has three different phases e.g: WaitingForApproval, Approved, Denied. If SecretAccessRequest is approved, then the KubeVault operator will issue credentials and create Kubernetes secret containing credentials. 
 
 ```bash
 $ kubectl apply -f secretaccessrequest.yaml
@@ -117,16 +105,9 @@ $ kubectl vault approve secretaccessrequest mysql-cred-req -n dev
 $ kubectl vault deny secretaccessrequest mysql-cred-req -n dev
 ```
 ## Secure Microservice using Dynamic Secrets
-
-One of the really cool concepts behind Vault is dynamic secrets. And when we talk about secret sprawl, the ability to have the same username and password distributed out across your fleet allows an attacker to attack one insecure area and then gain secrets across your entire environment.
-
-Dynamic secrets changed this paradigm a little bit by having each of your endpoints get its own username and password for the entity that you're trying to get access to.
-
-Most of these dynamic secrets are timebound and easily revocable, so if you notice that there's an issue or a breach inside your environment, you can revoke one secret, while all the rest of your applications have other usernames and passwords.
+This microservice will use the dynamically generated credentials (username, password) which will be mounted on the provided directory & these credentials bound the users to the specific roles in the database.
 
 ## Create ServiceAccount & SecretRoleBinding
-
-A SecretRoleBinding is a Kubernetes CustomResourceDefinition (CRD) which allows a user to bind a set of roles to a set of users. Using the SecretRoleBinding it’s possible to bind various roles e.g: AWSRole, GCPRole, ElasticsearchRole, MongoDBRole, etc. to Kubernetes ServiceAccounts. A SecretRoleBinding has three different phases e.g: Processing, Success, Failed. Once a SecretRoleBinding is successful, it will create a VaultPolicy and a VaultPolicyBinding.
 
 ```bash
 # create the service account
