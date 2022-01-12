@@ -14,7 +14,7 @@ spec:
       from: All
     secretEngines:
       - mysql
-  version: 1.8.2
+  version: 1.9.2
   replicas: 3
   backend:
     raft:
@@ -41,3 +41,4 @@ spec:
       exporter: 
         resources: {}
   terminationPolicy: DoNotTerminate
+  

@@ -20,3 +20,4 @@ spec:
         readOnly: true
         volumeAttributes:
           secretProviderClass: "vault-db-provider"
+          

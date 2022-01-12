@@ -1,0 +1,10 @@
+$ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ./ca.key -out ./ca.crt -subj "/CN=vault/O=kubevault"
+ 
+$ kubectl create secret tls vault-ca \
+                          --cert=ca.crt \
+                          --key=ca.key \
+                          --namespace=demo
+
+$ kubectl apply -f issuer.yaml
+
+$ kubectl get issuer -n demo

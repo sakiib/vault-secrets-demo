@@ -1,2 +1,4 @@
 .idea/
 deploy/gcp-cred.yaml
+deploy/vault-license.txt
+deploy/db-license.txt

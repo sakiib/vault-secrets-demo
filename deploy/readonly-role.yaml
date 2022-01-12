@@ -8,9 +8,9 @@ spec:
     name: mysql-secret-engine
   creationStatements:
     - "CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}';"
-    - "GRANT CREATE, INSERT, SELECT ON *.* TO '{{name}}'@'%';"
+    - "GRANT SELECT ON *.* TO '{{name}}'@'%';"
   revocationStatements:
-    - "REVOKE CREATE, INSERT, SELECT ON *.* FROM '{{name}}'@'%';"
+    - "REVOKE SELECT ON *.* FROM '{{name}}'@'%';"
     - "DROP USER '{{name}}'@'%';" 
   defaultTTL: 1h
   maxTTL: 24h
