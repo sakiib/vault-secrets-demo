@@ -1,5 +1,44 @@
 # vault-secrets-demo
 
+# Install KubeDB Enterprise operator chart
+
+```bash
+$ helm install kubedb appscode/kubedb \
+    --version v2021.12.21 \
+    --namespace kubedb --create-namespace \
+    --set kubedb-enterprise.enabled=true \
+    --set kubedb-autoscaler.enabled=true \
+    --set-file global.license=/path/to/the/license.txt
+```
+
+# Install KubeVault Enterprise operator chart
+
+```bash
+$ helm install kubevault appscode/kubevault \
+    --version v2022.01.11 \
+    --namespace kubevault --create-namespace \
+    --set-file global.license=/path/to/the/license.txt
+```
+
+# Install Secret-store CSI Driver
+
+```bash
+$ helm install csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver --namespace kube-system
+```
+
+# Install Vault specific CSI Provider
+
+```bash
+# using helm
+$ helm install vault hashicorp/vault \
+    --set "server.enabled=false" \
+    --set "injector.enabled=false" \
+    --set "csi.enabled=true"
+     
+# or using provider yaml
+$ kubectl apply -f provider.yaml
+```
+
 # Deploy TLS Secured VaultServer
 
 ```bash
@@ -53,7 +92,7 @@ $ kubectl apply -f secretaccessrequest.yaml
 $ kubectl vault approve secretaccessrequest mysql-cred-req -n dev
 
 # deny secret access request
-$ kubectl vault approve secretaccessrequest mysql-cred-req -n dev
+$ kubectl vault deny secretaccessrequest mysql-cred-req -n dev
 ```
 
 # Deploy Microservice to demonstrate Vault Dynamic Secrets
