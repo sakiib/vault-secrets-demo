@@ -143,11 +143,9 @@ $ kubectl vault generate secretproviderclass vault-db-provider -n test      \
 
 One of the really cool concepts behind Vault is dynamic secrets. And when we talk about secret sprawl, the ability to have the same username and password distributed out across your fleet allows an attacker to attack one insecure area and then gain secrets across your entire environment.
 
-Dynamic secrets changed this paradigm a little bit by having each of your endpoints get its own username and password for the entity that you're trying to get access to. So if somebody were to pivot off from another system and gain access to a less-secured microservice, they couldn't get access to the rest of them.
+Dynamic secrets changed this paradigm a little bit by having each of your endpoints get its own username and password for the entity that you're trying to get access to.
 
-Most of these dynamic secrets are timebound and easily revocable, so if you notice that there's an issue or a breach inside your environment, you can revoke one secret, while all the rest of your applications have other usernames and passwords. You don't have to worry about restarting your whole fleet or taking your whole fleet of environments down.
-
-It can help mitigate a little bit of risk by spreading out the surface area in which your secrets are installed.
+Most of these dynamic secrets are timebound and easily revocable, so if you notice that there's an issue or a breach inside your environment, you can revoke one secret, while all the rest of your applications have other usernames and passwords. 
 
 ```bash
 # create a microservice deployment
