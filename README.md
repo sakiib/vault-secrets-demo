@@ -116,6 +116,13 @@ $ kubectl vault approve secretaccessrequest mysql-cred-req -n dev
 # deny secret access request
 $ kubectl vault deny secretaccessrequest mysql-cred-req -n dev
 ```
+## Secure Microservice using Dynamic Secrets
+
+One of the really cool concepts behind Vault is dynamic secrets. And when we talk about secret sprawl, the ability to have the same username and password distributed out across your fleet allows an attacker to attack one insecure area and then gain secrets across your entire environment.
+
+Dynamic secrets changed this paradigm a little bit by having each of your endpoints get its own username and password for the entity that you're trying to get access to.
+
+Most of these dynamic secrets are timebound and easily revocable, so if you notice that there's an issue or a breach inside your environment, you can revoke one secret, while all the rest of your applications have other usernames and passwords.
 
 ## Create ServiceAccount & SecretRoleBinding
 
@@ -139,13 +146,7 @@ $ kubectl vault generate secretproviderclass vault-db-provider -n test      \
     --keys username=sql-user --keys password=sql-pass -o yaml 
 ```
 
-## Deploy the Microservice
-
-One of the really cool concepts behind Vault is dynamic secrets. And when we talk about secret sprawl, the ability to have the same username and password distributed out across your fleet allows an attacker to attack one insecure area and then gain secrets across your entire environment.
-
-Dynamic secrets changed this paradigm a little bit by having each of your endpoints get its own username and password for the entity that you're trying to get access to.
-
-Most of these dynamic secrets are timebound and easily revocable, so if you notice that there's an issue or a breach inside your environment, you can revoke one secret, while all the rest of your applications have other usernames and passwords. 
+## Deploy the Microservice 
 
 ```bash
 # create a microservice deployment
